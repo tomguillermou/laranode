@@ -2,9 +2,8 @@
     "name": "laranode",
     "version": "1.0.0",
     "description": "Create a simple Node.js API based on Laravel principles",
-    "main": "index.js",
+    "main": "src/index.js",
     "scripts": {
-        "seed": "node --require dotenv/config src/framework/scripts/seed.js",
         "start": "nodemon --exec babel-node src/app.js"
     },
     "author": "",
