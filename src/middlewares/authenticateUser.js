@@ -4,7 +4,7 @@ module.exports = (req, res, next) => {
 
     // Parse JWT from Bearer token in header
     const bearerToken = req.header('authorization');
-    const tokenArray =  bearerToken.split(' ');
+    const tokenArray = bearerToken.split(' ');
     const token = tokenArray[1];
 
     jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
