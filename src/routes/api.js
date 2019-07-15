@@ -5,7 +5,7 @@ const router = express.Router();
 /**
  * Middlewares imports
  */
-const authenticateUser = require('../middlewares/authenticateUser');
+const authenticateUser = require('../middleware/authenticateUser');
 
 /**
  * Controllers imports
