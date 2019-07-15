@@ -4,45 +4,46 @@ const User = require('../models/User');
 
 module.exports = {
 
-    login: async (req, res) => {
+  async login(req, res) {
 
-        const { email } = req.body;
-        const { password } = req.body;
+    try {
+      const user = await User.findOne({ email: req.body.email }).exec();
 
-        try {
-            const user = await User.findOne().where('email').equals(email).exec();
+      if (user && user.comparePassword(req.body.password)) {
 
-            if (user && user.comparePassword(password)) {
+        const tokenData = { userId: user._id };
 
-                const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+        const token = jwt.sign(tokenData, process.env.JWT_SECRET);
 
-                res.status(200).json({ token });
-                
-            } else {
-                res.status(500).json({ error: 'Invalid credentials' });
-            }
+        res.send({ token });
 
-        } catch (error) {
-            res.status(500).json({ error });
-        }
-    },
+      } else {
+        res.status(500).send({ error: 'Invalid credentials' });
+      }
 
-    register: async (req, res) => {
-
-        try {
-            const docUser = {
-                email: req.body.email,
-                password: req.body.password
-            };
-
-            const user = await User.create(docUser);
-
-            const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
-
-            res.status(200).json({ token });
-
-        } catch (error) {
-            res.status(500).json({ error });
-        }
+    } catch (err) {
+      res.status(500).send({ error: err });
     }
+  },
+
+  async register(req, res) {
+
+    try {
+      const user = new User({
+        email: req.body.email,
+        password: req.body.password
+      });
+
+      const newUser = await user.save();
+
+      const tokenData = { userId: newUser._id };
+
+      const token = jwt.sign(tokenData, process.env.JWT_SECRET);
+
+      res.status(200).json({ token });
+
+    } catch (err) {
+      res.status(500).send({ error: err });
+    }
+  }
 };

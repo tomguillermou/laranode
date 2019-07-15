@@ -4,7 +4,7 @@
     "description": "Create a simple Node.js API based on Laravel principles",
     "main": "src/index.js",
     "scripts": {
-        "start": "nodemon --exec babel-node src/app.js"
+        "start": "nodemon --exec babel-node src/index.js"
     },
     "author": "",
     "license": "ISC",

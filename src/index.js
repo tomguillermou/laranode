@@ -12,18 +12,20 @@ const config = require('./config.json');
 // Router(s)
 const apiRouter = require('./routes/api');
 
-function start() {
-    mongoose.connect(`${config.dbAddress}/${config.dbName}`, { useNewUrlParser: true }, (err) => {
-        if (err) {
-            console.log('Error trying to connect to database: %s', config.dbName);
-            console.log(err);
-        } else {
-            console.log('Connected to database: %s', config.dbName);
-            app.listen(config.apiPort, () => {
-                console.log('App started on port: %d', config.apiPort);
-            });
-        }
-    });
+function start(app) {
+  mongoose.connect(`${config.dbAddress}/${config.dbName}`, {
+    useNewUrlParser: true
+  }, (err) => {
+    if (err) {
+      console.log('Error trying to connect to db: %s', config.dbName);
+      console.log(err);
+    } else {
+      console.log('Connected to db: %s', config.dbName);
+      app.listen(config.apiPort, () => {
+        console.log('Listening port: %d', config.apiPort);
+      });
+    }
+  });
 }
 
 const app = express();
@@ -37,4 +39,4 @@ app.use(bodyParser.json());
 // Router(s) binding
 app.use(config.apiPath, apiRouter);
 
-start();
+start(app);
