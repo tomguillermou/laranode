@@ -7,24 +7,22 @@ const mongoose = require('mongoose');
 
 require('dotenv').config();
 
-const config = require('./config.json');
-
 // Router(s)
 const apiRouter = require('./routes/api');
 
 function start(app) {
-  mongoose.connect(`${config.dbAddress}/${config.dbName}`, {
-    useNewUrlParser: true
-  }, (err) => {
-    if (err) {
-      console.log('Error trying to connect to db: %s', config.dbName);
+  mongoose.connect(`${process.env.DATABASE_ADDRESS}/${process.env.DATABASE_NAME}`, { useNewUrlParser: true })
+    .then(() => {
+      console.log('Connected to db: %s', process.env.DATABASE_NAME);
+    })
+    .catch((err) => {
+      console.log('Error trying to connect to db: %s', process.env.DATABASE_NAME);
       console.log(err);
-    } else {
-      console.log('Connected to db: %s', config.dbName);
-      app.listen(config.apiPort, () => {
-        console.log('Listening port: %d', config.apiPort);
-      });
-    }
+      process.exit(1);
+    });
+
+  app.listen(process.env.PORT, () => {
+    console.log('Listening port: %d', process.env.PORT);
   });
 }
 
@@ -37,6 +35,6 @@ app.use(cors()); // Enable CORS for all origins
 app.use(bodyParser.json());
 
 // Router(s) binding
-app.use(config.apiPath, apiRouter);
+app.use('/api', apiRouter);
 
 start(app);

@@ -1,6 +1,0 @@
-{
-    "apiPort": 5000,
-    "apiPath": "/api",
-    "dbAddress": "mongodb://localhost:27017",
-    "dbName": "laranode"
-}
