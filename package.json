@@ -4,7 +4,8 @@
   "description": "Create a simple Node.js API based on Laravel principles",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon src/index.js"
+    "start": "nodemon src/index.js",
+    "dev": "npx tsc && node dist/index.js"
   },
   "author": "",
   "license": "ISC",
@@ -16,14 +17,17 @@
     "express": "^4.16.4",
     "helmet": "^3.18.0",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.14",
     "mongoose": "^5.5.3",
     "morgan": "^1.9.1"
   },
   "devDependencies": {
+    "@types/express": "^4.17.0",
+    "@types/node": "^12.6.6",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.17.2",
-    "nodemon": "^1.18.11"
+    "nodemon": "^1.18.11",
+    "typescript": "^3.5.3"
   }
 }
