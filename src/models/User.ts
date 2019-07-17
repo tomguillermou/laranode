@@ -1,20 +1,23 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 
-/**
- * Name
- */
-const name = 'User';
 
-/**
- * Attributes
- */
+interface UserDocument extends mongoose.Document {
+  email: string,
+  password: string,
+  comparePassword: (plaintext: string) => boolean
+}
+
+
+const name = 'User'
+
+
 const attributes = {
   email: {
     type: String,
     required: true,
     validate: {
-      validator: async (value) => {
+      validator: async (value: any) => {
         const user = await mongoose.model('User').findOne()
           .where('email').equals(value)
           .exec();
@@ -33,34 +36,24 @@ const attributes = {
   }
 };
 
-/**
- * Options
- */
+
 const options = {};
 
-/**
- * Schema
- */
-const schema = new mongoose.Schema(attributes, options);
 
-/**
- * Methods
- */
-schema.methods.comparePassword = function (plaintext) {
+const UserSchema = new mongoose.Schema(attributes, options);
+
+
+UserSchema.methods.comparePassword = function (plaintext: string) {
   return bcrypt.compareSync(plaintext, this.password);
 };
 
-/**
- * Hooks
- */
-schema.pre('save', function (next) {
+
+UserSchema.pre<UserDocument>('save', function (next: mongoose.HookNextFunction) {
   if (this.isModified('password')) {
     this.password = bcrypt.hashSync(this.password, 10);
   }
   next();
 });
 
-/**
- * Model export
- */
-module.exports = mongoose.model(name, schema);
+
+export default mongoose.model<UserDocument>(name, UserSchema);
