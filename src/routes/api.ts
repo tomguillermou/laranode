@@ -4,7 +4,7 @@ const router = Router();
 /**
  * Middlewares imports
  */
-import authenticateUser from "../middleware/authenticateUser";
+import authenticateUser from "../middlewares/authenticateUser";
 
 /**
  * Controllers imports
@@ -24,4 +24,4 @@ router.get('/users/:id', authenticateUser, UserController.readOne);
 router.patch('/users/:id', authenticateUser, UserController.updateOne);
 router.delete('/users/:id', authenticateUser, UserController.deleteOne);
 
-module.exports = router;
+export default router;
