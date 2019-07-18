@@ -18,13 +18,11 @@ const attributes = {
     required: true,
     validate: {
       validator: async (value: any) => {
-        const user = await mongoose.model('User').findOne()
+        const existingUser = await mongoose.model('User').findOne()
           .where('email').equals(value)
           .exec();
 
-        const emailAlreadyUsed = user === null;
-
-        return emailAlreadyUsed;
+        return existingUser === null;
       },
       message: 'This email is already used',
     },
