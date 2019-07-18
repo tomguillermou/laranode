@@ -39,7 +39,7 @@ export async function updateOne(req: Request, res: Response) {
     user.save((err, user) => {
       if (err) { return res.status(500).send({ error: err }) }
 
-      res.send({ data: user });
+      res.send({ update: 'done' });
     });
   });
 }
