@@ -1,14 +1,19 @@
 import express from 'express';
+import mongoose from 'mongoose';
+
+// Load .env file
+import dotenv from 'dotenv';
+dotenv.config();
+
+// Middlewares
 // import helmet from 'helmet';
 // import cors from 'cors';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
-
-require('dotenv').config();
 
 // Router(s)
-const apiRouter = require('./routes/api');
+import apiRouter from './routes/api';
+
 
 function start(app: any) {
   mongoose.connect(`${process.env.DATABASE_ADDRESS}/${process.env.DATABASE_NAME}`, {
@@ -28,7 +33,7 @@ function start(app: any) {
 
 const app = express();
 
-// Middlewares binding
+// Pre-request handler middlewares
 app.use(morgan('dev'));
 // app.use(helmet()); // Use Helmet to protect headers
 // app.use(cors()); // Enable CORS for all origins
