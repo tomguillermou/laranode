@@ -16,16 +16,8 @@ const attributes = {
   email: {
     type: String,
     required: true,
-    validate: {
-      validator: async (value: any) => {
-        const existingUser = await mongoose.model('User').findOne()
-          .where('email').equals(value)
-          .exec();
-
-        return existingUser === null;
-      },
-      message: 'This email is already used',
-    },
+    unique: true,
+    select: true
   },
   password: {
     type: String,
@@ -45,7 +37,7 @@ UserSchema.methods.comparePassword = function (plaintext: string) {
   return bcrypt.compareSync(plaintext, this.password);
 };
 
-
+// Hash password
 UserSchema.pre<UserDocument>('save', function (next: mongoose.HookNextFunction) {
   if (this.isModified('password')) {
     this.password = bcrypt.hashSync(this.password, 10);
