@@ -1,47 +1,49 @@
 import { Request, Response } from "express";
-import { sign } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
+
 
 import User from '../models/User';
 
 
 const JWT_SECRET = process.env.JWT_SECRET || 'secret';
 
-export async function login(req: Request, res: Response) {
 
-  try {
-    const user = await User.findOne({ email: req.body.email }).exec();
+export function login(req: Request, res: Response) {
 
-    if (user && user.comparePassword(req.body.password)) {
+  User.findOne({ email: req.body.email }, '+password', (err, user) => {
+    if (err) { return res.status(500).send({ error: err }) }
 
-      const tokenData = { userId: user._id };
-      const token = sign(tokenData, JWT_SECRET);
-
-      res.send({ token });
-
-    } else {
-      res.status(500).send({ error: 'Invalid credentials' });
+    if (user === null || !user.comparePassword(req.body.password)) {
+      return res.status(500).send({ error: 'Invalid credentials' });
     }
 
-  } catch (err) {
-    res.status(500).send({ error: err });
-  }
+    const tokenData = { userId: user._id };
+
+    jwt.sign(tokenData, JWT_SECRET, (err, encodedToken) => {
+      if (err) { return res.status(500).send({ error: err }) }
+
+      res.status(200).json({ token: encodedToken });
+    });
+  });
 }
 
-export async function register(req: Request, res: Response) {
 
-  try {
-    const user = new User({
-      email: req.body.email,
-      password: req.body.password
+export function register(req: Request, res: Response) {
+
+  const user = new User({
+    email: req.body.email,
+    password: req.body.password
+  });
+
+  user.save((err, savedUser) => {
+    if (err) { return res.status(500).send({ error: err }) }
+
+    const tokenData = { userId: savedUser._id };
+
+    jwt.sign(tokenData, JWT_SECRET, (err, encodedToken) => {
+      if (err) { return res.status(500).send({ error: err }) }
+
+      res.status(200).json({ token: encodedToken });
     });
-
-    const newUser = await user.save();
-    const tokenData = { userId: newUser._id };
-    const token = sign(tokenData, JWT_SECRET);
-
-    res.status(200).json({ token });
-
-  } catch (err) {
-    res.status(500).send({ error: err });
-  }
+  });
 }
