@@ -18,7 +18,6 @@ module.exports = {
     'comma-dangle': 0,
     'no-underscore-dangle': 0,
     'padded-blocks': 0,
-    'no-trailing-spaces': 0,
     'func-names': 0
   },
 };

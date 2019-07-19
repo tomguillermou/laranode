@@ -1,17 +1,16 @@
-const express = require('express');
-
-const router = express.Router();
+import { Router } from 'express';
+const router = Router();
 
 /**
  * Middlewares imports
  */
-const authenticateUser = require('../middlewares/authenticateUser');
+import authenticateUser from "../middlewares/authenticateUser";
 
 /**
  * Controllers imports
  */
-const AuthController = require('../controllers/AuthController');
-const UserController = require('../controllers/UserController');
+import * as AuthController from '../controllers/AuthController';
+import * as UserController from '../controllers/UserController';
 
 /**
  * Routes
@@ -25,4 +24,4 @@ router.get('/users/:id', authenticateUser, UserController.readOne);
 router.patch('/users/:id', authenticateUser, UserController.updateOne);
 router.delete('/users/:id', authenticateUser, UserController.deleteOne);
 
-module.exports = router;
+export default router;
