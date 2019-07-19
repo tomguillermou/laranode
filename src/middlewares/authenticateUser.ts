@@ -30,6 +30,8 @@ export default async function authenticateUser(req: Request, res: Response, next
       throw new Error("Authentication failed");
     }
 
+    req.authUserId = authUser._id.toString();
+
     next();
 
   } catch (error) {
