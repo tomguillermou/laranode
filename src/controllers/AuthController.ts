@@ -17,7 +17,7 @@ export async function login(req: Request, res: Response) {
       throw new Error('Invalid credentials');
     }
 
-    const tokenData = user._id;
+    const tokenData = user._id.toString();
     const encodedToken = jwt.sign(tokenData, JWT_SECRET);
 
     res.json({ token: encodedToken });
@@ -31,15 +31,15 @@ export async function login(req: Request, res: Response) {
 
 export async function register(req: Request, res: Response) {
 
-  const user = new User({
-    email: req.body.email,
-    password: req.body.password
-  });
-
   try {
+    const user = new User({
+      email: req.body.email,
+      password: req.body.password
+    });
+
     const savedUser = await user.save();
 
-    const tokenData = savedUser._id;
+    const tokenData = savedUser._id.toString();
     const encodedToken = jwt.sign(tokenData, JWT_SECRET);
 
     res.json({ token: encodedToken });
