@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 
-import User from '../models/User';
-
+import User from "../models/User";
 
 export async function readMany(req: Request, res: Response) {
 
@@ -15,14 +14,13 @@ export async function readMany(req: Request, res: Response) {
   }
 }
 
-
 export async function readOne(req: Request, res: Response) {
 
   try {
     const user = await User.findById(req.params.id).exec();
 
     if (user === null) {
-      throw new Error('This user does not exist');
+      throw new Error("This user does not exist");
     }
 
     res.json({ data: user });
@@ -33,19 +31,18 @@ export async function readOne(req: Request, res: Response) {
   }
 }
 
-
 export async function updateOne(req: Request, res: Response) {
 
   try {
     const user = await User.findById(req.params.id).exec();
 
     if (user === null) {
-      throw new Error('This user does not exist');
+      throw new Error("This user does not exist");
     }
 
     user.set(req.body);
     await user.save();
-    res.json({ update: 'done' });
+    res.json({ update: "done" });
 
   } catch (error) {
     console.log(error);
@@ -53,18 +50,17 @@ export async function updateOne(req: Request, res: Response) {
   }
 }
 
-
 export async function deleteOne(req: Request, res: Response) {
 
   try {
     const user = await User.findById(req.params.id).exec();
 
     if (user === null) {
-      throw new Error('This user does not exist');
+      throw new Error("This user does not exist");
     }
 
     await user.remove();
-    res.json({ delete: 'done' });
+    res.json({ delete: "done" });
 
   } catch (error) {
     console.log(error);
