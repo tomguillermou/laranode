@@ -37,6 +37,7 @@ UserSchema.methods.comparePassword = function (plaintext: string) {
   return bcrypt.compareSync(plaintext, this.password);
 };
 
+
 // Hash password
 UserSchema.pre<UserDocument>('save', function (next: mongoose.HookNextFunction) {
   if (this.isModified('password')) {
