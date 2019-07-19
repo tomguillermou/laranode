@@ -4,7 +4,6 @@
   "description": "Create a simple Node.js API based on Laravel principles",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon src/index.js",
     "dev": "npx tsc && node dist"
   },
   "author": "",
