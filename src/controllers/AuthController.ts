@@ -17,7 +17,7 @@ export async function login(req: Request, res: Response) {
       throw new Error('Invalid credentials');
     }
 
-    const tokenData = { userId: user._id };
+    const tokenData = user._id;
     const encodedToken = jwt.sign(tokenData, JWT_SECRET);
 
     res.json({ token: encodedToken });
@@ -39,7 +39,7 @@ export async function register(req: Request, res: Response) {
   try {
     const savedUser = await user.save();
 
-    const tokenData = { userId: savedUser._id };
+    const tokenData = savedUser._id;
     const encodedToken = jwt.sign(tokenData, JWT_SECRET);
 
     res.json({ token: encodedToken });
