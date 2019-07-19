@@ -3,61 +3,71 @@ import { Request, Response } from "express";
 import User from '../models/User';
 
 
-export function readMany(req: Request, res: Response) {
+export async function readMany(req: Request, res: Response) {
 
-  User.find((err, users) => {
-    if (err) { return res.status(500).send({ error: err }) }
+  try {
+    const users = await User.find().exec();
+    res.json({ data: users });
 
-    res.send({ data: users });
-  });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error });
+  }
 }
 
-export function readOne(req: Request, res: Response) {
 
-  User.findById(req.params.id, (err, user) => {
-    if (err) { return res.status(500).send({ error: err }) }
+export async function readOne(req: Request, res: Response) {
+
+  try {
+    const user = await User.findById(req.params.id).exec();
 
     if (user === null) {
-      return res.status(500).send({ error: 'This user does not exist' })
+      throw new Error('This user does not exist');
     }
 
-    res.send({ data: user });
-  });
+    res.json({ data: user });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error });
+  }
 }
+
 
 export async function updateOne(req: Request, res: Response) {
 
-  User.findById(req.params.id, (err, user) => {
-    if (err) { return res.status(500).send({ error: err }) }
+  try {
+    const user = await User.findById(req.params.id).exec();
 
     if (user === null) {
-      return res.status(500).send({ error: 'This user does not exist' })
+      throw new Error('This user does not exist');
     }
 
     user.set(req.body);
+    await user.save();
+    res.json({ update: 'done' });
 
-    user.save((err, user) => {
-      if (err) { return res.status(500).send({ error: err }) }
-
-      res.send({ update: 'done' });
-    });
-  });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error });
+  }
 }
+
 
 export async function deleteOne(req: Request, res: Response) {
 
-  User.findById(req.params.id, (err, user) => {
-    if (err) { return res.status(500).send({ error: err }) }
+  try {
+    const user = await User.findById(req.params.id).exec();
 
     if (user === null) {
-      return res.status(500).send({ error: 'This user does not exist' })
+      throw new Error('This user does not exist');
     }
 
-    user.remove((err, user) => {
-      console.log(err);
-      if (err) { return res.status(500).send({ error: err }) }
+    await user.remove();
+    res.json({ delete: 'done' });
 
-      res.send({ data: user });
-    });
-  });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error });
+  }
 }
