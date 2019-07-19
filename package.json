@@ -31,9 +31,6 @@
     "@types/morgan": "^1.7.35",
     "@types/node": "^12.6.6",
     "concurrently": "^4.1.1",
-    "eslint": "^5.16.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.17.2",
     "nodemon": "^1.18.11",
     "typescript": "^3.5.3"
   }
