@@ -4,8 +4,8 @@
   "description": "Create a simple Node.js API based on Laravel principles",
   "main": "src/index.js",
   "scripts": {
-    "dev": "concurrently --names \"Typescript, Node.js\" -c \"blue,green\" \"npm run watch-ts\" \"npm run watch-node\"",
-    "watch-ts": "npx tsc --watch",
+    "dev": "concurrently --names \"Typescript,Node.js\" -c \"blue,green\" \"npm run watch-ts\" \"npm run watch-node\"",
+    "watch-ts": "tsc --watch",
     "watch-node": "nodemon --require dotenv/config dist/server.js"
   },
   "author": "",
