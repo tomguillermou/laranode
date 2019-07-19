@@ -8,42 +8,44 @@ import User from '../models/User';
 const JWT_SECRET = process.env.JWT_SECRET || 'secret';
 
 
-export function login(req: Request, res: Response) {
+export async function login(req: Request, res: Response) {
 
-  User.findOne({ email: req.body.email }, '+password', (err, user) => {
-    if (err) { return res.status(500).send({ error: err }) }
+  try {
+    const user = await User.findOne({ email: req.body.email }, '+password').exec();
 
     if (user === null || !user.comparePassword(req.body.password)) {
-      return res.status(500).send({ error: 'Invalid credentials' });
+      throw new Error('Invalid credentials');
     }
 
     const tokenData = { userId: user._id };
+    const encodedToken = jwt.sign(tokenData, JWT_SECRET);
 
-    jwt.sign(tokenData, JWT_SECRET, (err, encodedToken) => {
-      if (err) { return res.status(500).send({ error: err }) }
+    res.json({ token: encodedToken });
 
-      res.status(200).json({ token: encodedToken });
-    });
-  });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error });
+  }
 }
 
 
-export function register(req: Request, res: Response) {
+export async function register(req: Request, res: Response) {
 
   const user = new User({
     email: req.body.email,
     password: req.body.password
   });
 
-  user.save((err, savedUser) => {
-    if (err) { return res.status(500).send({ error: err }) }
+  try {
+    const savedUser = await user.save();
 
     const tokenData = { userId: savedUser._id };
+    const encodedToken = jwt.sign(tokenData, JWT_SECRET);
 
-    jwt.sign(tokenData, JWT_SECRET, (err, encodedToken) => {
-      if (err) { return res.status(500).send({ error: err }) }
+    res.json({ token: encodedToken });
 
-      res.status(200).json({ token: encodedToken });
-    });
-  });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error });
+  }
 }
