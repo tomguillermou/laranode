@@ -14,7 +14,7 @@ export async function readMany(req: Request, res: Response) {
     res.status(500).json({ error });
   }
 }
-console.log('titi');
+
 
 export async function readOne(req: Request, res: Response) {
 
