@@ -18,7 +18,7 @@ const attributes = {
   },
   password: {
     required: true,
-    select: true,
+    select: false,
     type: String,
   },
 };
