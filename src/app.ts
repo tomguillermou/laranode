@@ -11,6 +11,6 @@ app.use(morgan("dev"));
 app.use(helmet()); // Use Helmet to protect headers
 app.use(bodyParser.json());
 
-app.use("/api", apiRouter);
+app.use(apiRouter);
 
 export default app;
