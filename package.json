@@ -5,8 +5,9 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node --require dotenv/config dist/server.js",
-    "build": "tsc",
-    "dev": "concurrently --names \"Typescript,Node.js\" -c \"blue,green\" \"npm run watch-ts\" \"npm run watch-node\"",
+    "build": "npm run build-ts",
+    "build-ts": "tsc",
+    "watch": "concurrently --names \"Typescript,Node.js\" -c \"blue,green\" \"npm run watch-ts\" \"npm run watch-node\"",
     "watch-ts": "tsc --watch",
     "watch-node": "nodemon --require dotenv/config dist/server.js"
   },
