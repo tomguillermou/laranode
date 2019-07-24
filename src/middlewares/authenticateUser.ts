@@ -7,17 +7,17 @@ const JWT_SECRET = process.env.JWT_SECRET || "secret";
 export default async function authenticateUser(req: Request, res: Response, next: NextFunction) {
 
   try {
-    const bearerToken = req.header("authorization");
+    const authorizationHeader = req.header("authorization");
 
-    if (bearerToken === undefined) {
-      throw new Error("Missing bearer token");
+    if (authorizationHeader === undefined) {
+      throw new Error("Missing the authorization header with the bearer token");
     }
 
-    // Parse encoded JWT from Bearer token
-    const encodedToken = bearerToken.split(" ")[1];
+    // Parse encoded bearer token from the authorization header
+    const bearerToken = authorizationHeader.split(" ")[1];
 
     // The encoded token corresponds to the user id trying to log in
-    const decodedToken = jwt.verify(encodedToken, JWT_SECRET);
+    const decodedToken = jwt.verify(bearerToken, JWT_SECRET);
 
     // Check if decoded token is not a valid ObjectId
     if (typeof decodedToken !== "string" || !decodedToken.match(/^[0-9a-fA-F]{24}$/)) {
