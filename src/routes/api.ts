@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, Request, Response } from "express";
 const router = Router();
 
 /**
@@ -20,6 +20,10 @@ import * as authValidator from "../validators/auth";
 /**
  * Routes
  */
+router.get("/", (req: Request, res: Response) => {
+  res.send("Welcome to Laranode API");
+});
+
 router.post("/auth/login", authValidator.login, AuthController.login);
 router.post("/auth/register", authValidator.register, AuthController.register);
 
