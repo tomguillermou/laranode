@@ -6,7 +6,10 @@
   "jsRules": {},
   "rules": {
     "no-console": false,
-    "space-before-function-paren": false
+    "space-before-function-paren": false,
+    "object-literal-sort-keys": false,
+    "ordered-imports": false,
+    "trailing-comma": false
   },
   "rulesDirectory": []
 }
