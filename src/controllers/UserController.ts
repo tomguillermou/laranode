@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
 
 import User from "../models/User";
+
 import { handleErrorReponse } from "../core/errors";
+import errorMessage from "../config/errors/messages.json";
 
 export async function readMany(req: Request, res: Response) {
 
@@ -20,7 +22,7 @@ export async function readOne(req: Request, res: Response) {
     const user = await User.findById(req.params.id).exec();
 
     if (user === null) {
-      throw new Error("This user does not exist");
+      throw new Error(errorMessage.userDoesNotExist);
     }
 
     res.json({ data: user });
@@ -36,7 +38,7 @@ export async function updateOne(req: Request, res: Response) {
     const user = await User.findById(req.params.id).exec();
 
     if (user === null) {
-      throw new Error("This user does not exist");
+      throw new Error(errorMessage.userDoesNotExist);
     }
 
     user.set(req.body);
@@ -54,7 +56,7 @@ export async function deleteOne(req: Request, res: Response) {
     const user = await User.findById(req.params.id).exec();
 
     if (user === null) {
-      throw new Error("This user does not exist");
+      throw new Error(errorMessage.userDoesNotExist);
     }
 
     await user.remove();

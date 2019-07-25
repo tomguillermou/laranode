@@ -2,7 +2,9 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
 import User from "../models/User";
+
 import { handleErrorReponse } from "../core/errors";
+import errorMessage from "../config/errors/messages.json";
 
 const JWT_SECRET = process.env.JWT_SECRET || "secret";
 
@@ -12,7 +14,7 @@ export async function login(req: Request, res: Response) {
     const user = await User.findOne({ email: req.body.email }, "+password").exec();
 
     if (user === null || !user.comparePassword(req.body.password)) {
-      throw new Error("Invalid credentials");
+      throw new Error(errorMessage.invalidCredentials);
     }
 
     const tokenData = user._id.toString();
