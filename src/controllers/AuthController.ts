@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
 import User from "../models/User";
+import { handleErrorReponse } from "../core/errors";
 
 const JWT_SECRET = process.env.JWT_SECRET || "secret";
 
@@ -20,8 +21,7 @@ export async function login(req: Request, res: Response) {
     res.json({ token: encodedToken });
 
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error });
+    handleErrorReponse(res, 500, error);
   }
 }
 
@@ -41,7 +41,6 @@ export async function register(req: Request, res: Response) {
     res.json({ token: encodedToken });
 
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error });
+    handleErrorReponse(res, 500, error);
   }
 }

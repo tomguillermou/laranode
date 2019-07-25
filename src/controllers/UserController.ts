@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 
 import User from "../models/User";
+import { handleErrorReponse } from "../core/errors";
 
 export async function readMany(req: Request, res: Response) {
 
@@ -9,8 +10,7 @@ export async function readMany(req: Request, res: Response) {
     res.json({ data: users });
 
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ error });
+    handleErrorReponse(res, 500, error);
   }
 }
 
@@ -26,8 +26,7 @@ export async function readOne(req: Request, res: Response) {
     res.json({ data: user });
 
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ error });
+    handleErrorReponse(res, 500, error);
   }
 }
 
@@ -45,8 +44,7 @@ export async function updateOne(req: Request, res: Response) {
     res.json({ update: "done" });
 
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ error });
+    handleErrorReponse(res, 500, error);
   }
 }
 
@@ -63,7 +61,6 @@ export async function deleteOne(req: Request, res: Response) {
     res.json({ delete: "done" });
 
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ error });
+    handleErrorReponse(res, 500, error);
   }
 }

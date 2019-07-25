@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
+
 import User from "../models/User";
+import { handleErrorReponse } from "../core/errors";
 
 const JWT_SECRET = process.env.JWT_SECRET || "secret";
 
@@ -35,7 +37,6 @@ export default async function authenticateUser(req: Request, res: Response, next
     next();
 
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ error });
+    handleErrorReponse(res, 500, error);
   }
 }

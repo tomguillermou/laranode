@@ -1,0 +1,7 @@
+{
+  "invalidEmailFormat": "Email address must follow format 'jsmith@example.com'",
+  "passwordTooShort": "Password must have at least 8 characters",
+  "passwordMissingDigit": "Password must have at least 1 digit",
+  "passwordMissingLowercase": "Password must have at least 1 lowercase letter",
+  "passwordMissingUppercase": "Password must have at least 1 uppercase letter"
+}
