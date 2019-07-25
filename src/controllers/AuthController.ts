@@ -23,7 +23,7 @@ export async function login(req: Request, res: Response) {
     res.json({ token: encodedToken });
 
   } catch (error) {
-    handleErrorReponse(res, 500, error);
+    handleErrorReponse(res, error);
   }
 }
 
@@ -43,6 +43,6 @@ export async function register(req: Request, res: Response) {
     res.json({ token: encodedToken });
 
   } catch (error) {
-    handleErrorReponse(res, 500, error);
+    handleErrorReponse(res, error);
   }
 }

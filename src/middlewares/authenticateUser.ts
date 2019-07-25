@@ -37,6 +37,6 @@ export default async function authenticateUser(req: Request, res: Response, next
     next();
 
   } catch (error) {
-    handleErrorReponse(res, 500, error);
+    handleErrorReponse(res, error);
   }
 }

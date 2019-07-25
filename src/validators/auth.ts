@@ -13,7 +13,7 @@ export function login(req: Request, res: Response, next: NextFunction) {
     next();
 
   } catch (error) {
-    handleErrorReponse(res, 422, error);
+    handleErrorReponse(res, error);
   }
 }
 
@@ -33,6 +33,6 @@ export function register(req: Request, res: Response, next: NextFunction) {
     next();
 
   } catch (error) {
-    handleErrorReponse(res, 422, error);
+    handleErrorReponse(res, error);
   }
 }

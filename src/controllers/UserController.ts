@@ -12,7 +12,7 @@ export async function readMany(req: Request, res: Response) {
     res.json({ data: users });
 
   } catch (error) {
-    handleErrorReponse(res, 500, error);
+    handleErrorReponse(res, error);
   }
 }
 
@@ -28,7 +28,7 @@ export async function readOne(req: Request, res: Response) {
     res.json({ data: user });
 
   } catch (error) {
-    handleErrorReponse(res, 500, error);
+    handleErrorReponse(res, error);
   }
 }
 
@@ -46,7 +46,7 @@ export async function updateOne(req: Request, res: Response) {
     res.json({ update: "done" });
 
   } catch (error) {
-    handleErrorReponse(res, 500, error);
+    handleErrorReponse(res, error);
   }
 }
 
@@ -63,6 +63,6 @@ export async function deleteOne(req: Request, res: Response) {
     res.json({ delete: "done" });
 
   } catch (error) {
-    handleErrorReponse(res, 500, error);
+    handleErrorReponse(res, error);
   }
 }
