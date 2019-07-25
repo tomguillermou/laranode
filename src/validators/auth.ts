@@ -26,9 +26,9 @@ export function register(req: Request, res: Response, next: NextFunction) {
 
     if (matches(req.body.password, /\d/)) { throw new Error(errorMessage.passwordMissingDigit); }
 
-    if (matches(req.body.password, /[a-z]/)) { throw new Error(errorMessage.passwordMissingLowercase); }
+    if (matches(req.body.password, /[a-z]/)) { throw new Error(errorMessage.passwordMissingLowercaseLetter); }
 
-    if (matches(req.body.password, /[A-Z]/)) { throw new Error(errorMessage.passwordMissingUppercase); }
+    if (matches(req.body.password, /[A-Z]/)) { throw new Error(errorMessage.passwordMissingUppercaseLetter); }
 
     next();
 
