@@ -3,8 +3,8 @@
  * @param validation Boolean that is the result of the validation test
  * @param message Error message to throw if validation fails
  */
-export function check(validation: boolean, message: string) {
+export function check(validation: boolean, errorMessage: string) {
   if (!validation) {
-    throw new Error(message);
+    throw new Error(errorMessage);
   }
 }
