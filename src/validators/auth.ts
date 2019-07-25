@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from "express";
-import validator from "validator";
+import { isEmail, isLength, matches } from "validator";
+
+import { check } from "../helpers";
 
 export function login(req: Request, res: Response, next: NextFunction) {
 
   try {
-    if (!validator.isEmail(req.body.email)) {
-      throw new Error("Email address must follow format \"jsmith@example.com\"");
-    }
+    check(isEmail(req.body.email), "Email address must follow format \"jsmith@example.com\"");
 
     next();
 
@@ -19,25 +19,15 @@ export function login(req: Request, res: Response, next: NextFunction) {
 export function register(req: Request, res: Response, next: NextFunction) {
 
   try {
-    if (!validator.isEmail(req.body.email)) {
-      throw new Error("Email address must follow format 'jsmith@example.com'");
-    }
+    check(isEmail(req.body.email), "Email address must follow format \"jsmith@example.com\"");
 
-    if (!validator.isLength(req.body.password, { min: 8 })) {
-      throw new Error("Password must have at least 8 characters");
-    }
+    check(isLength(req.body.password, { min: 8 }), "Password must have at least 8 characters");
 
-    if (!validator.matches(req.body.password, /\d/)) {
-      throw new Error("Password must have at least 1 digit");
-    }
+    check(matches(req.body.password, /\d/), "Password must have at least 1 digit");
 
-    if (!validator.matches(req.body.password, /[a-z]/)) {
-      throw new Error("Password must have at least 1 lowercase letter");
-    }
+    check(matches(req.body.password, /[a-z]/), "Password must have at least 1 lowercase letter");
 
-    if (!validator.matches(req.body.password, /[A-Z]/)) {
-      throw new Error("Password must have at least 1 uppercase letter");
-    }
+    check(matches(req.body.password, /[A-Z]/), "Password must have at least 1 uppercase letter");
 
     next();
 
