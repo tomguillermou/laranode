@@ -2,7 +2,9 @@ import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
 import User from "../models/User";
+
 import { handleErrorReponse } from "../core/errors";
+import errorMessage from "../config/errors/messages.json";
 
 const JWT_SECRET = process.env.JWT_SECRET || "secret";
 
@@ -12,7 +14,7 @@ export default async function authenticateUser(req: Request, res: Response, next
     const authorizationHeader = req.header("authorization");
 
     if (authorizationHeader === undefined) {
-      throw new Error("Missing the authorization header with the bearer token");
+      throw new Error(errorMessage.missingAuthorizationHeader);
     }
 
     // Parse encoded bearer token from the authorization header
@@ -23,13 +25,13 @@ export default async function authenticateUser(req: Request, res: Response, next
 
     // Check if decoded token is not a valid ObjectId
     if (typeof decodedToken !== "string" || !decodedToken.match(/^[0-9a-fA-F]{24}$/)) {
-      throw new Error("Invalid bearer token");
+      throw new Error(errorMessage.invalidBearerToken);
     }
 
     const authUser = await User.findById(decodedToken).exec();
 
     if (authUser === null) {
-      throw new Error("Authentication failed");
+      throw new Error(errorMessage.authenticationFailed);
     }
 
     req.authUserId = authUser._id.toString();

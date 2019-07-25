@@ -5,5 +5,8 @@
   "passwordMissingLowercaseLetter": "Password must have at least 1 lowercase letter",
   "passwordMissingUppercaseLetter": "Password must have at least 1 uppercase letter",
   "invalidCredentials": "Invalid credentials",
-  "userDoesNotExist": "This user does not exist"
+  "userDoesNotExist": "This user does not exist",
+  "missingAuthorizationHeader": "Missing authorization header with bearer token",
+  "invalidBearerToken": "Invalid bearer token",
+  "authenticationFailed": "Authentication failed"
 }
