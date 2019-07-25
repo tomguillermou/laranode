@@ -2,14 +2,13 @@ import { NextFunction, Request, Response } from "express";
 import { isEmail, isLength, matches } from "validator";
 
 import { handleErrorReponse } from "../core/errors";
-import { check } from "../utils/helpers/validators";
 
 import errorMessage from "../config/errors/messages.json";
 
 export function login(req: Request, res: Response, next: NextFunction) {
 
   try {
-    check(isEmail(req.body.email), errorMessage.invalidEmailFormat);
+    if (isEmail(req.body.email)) { throw new Error(errorMessage.invalidEmailFormat); }
 
     next();
 
@@ -21,15 +20,15 @@ export function login(req: Request, res: Response, next: NextFunction) {
 export function register(req: Request, res: Response, next: NextFunction) {
 
   try {
-    check(isEmail(req.body.email), errorMessage.invalidEmailFormat);
+    if (isEmail(req.body.email)) { throw new Error(errorMessage.invalidEmailFormat); }
 
-    check(isLength(req.body.password, { min: 8 }), errorMessage.passwordTooShort);
+    if (isLength(req.body.password, { min: 8 })) { throw new Error(errorMessage.passwordTooShort); }
 
-    check(matches(req.body.password, /\d/), errorMessage.passwordMissingDigit);
+    if (matches(req.body.password, /\d/)) { throw new Error(errorMessage.passwordMissingDigit); }
 
-    check(matches(req.body.password, /[a-z]/), errorMessage.passwordMissingLowercase);
+    if (matches(req.body.password, /[a-z]/)) { throw new Error(errorMessage.passwordMissingLowercase); }
 
-    check(matches(req.body.password, /[A-Z]/), errorMessage.passwordMissingUppercase);
+    if (matches(req.body.password, /[A-Z]/)) { throw new Error(errorMessage.passwordMissingUppercase); }
 
     next();
 
