@@ -1,9 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { isEmail, isLength, matches } from "validator";
 
-import { handleErrorReponse } from "../core/errors";
-
 import errorMessage from "../config/errors/messages.json";
+import { handleErrorReponse } from "../core/errors";
 
 export function login(req: Request, res: Response, next: NextFunction) {
 

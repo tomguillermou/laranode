@@ -4,7 +4,7 @@ import app from "../app";
 import errorMessage from "../config/errors/messages.json";
 
 describe("Validators", () => {
-  jest.setTimeout(30000);
+
   describe("Auth", () => {
 
     describe("Login", () => {

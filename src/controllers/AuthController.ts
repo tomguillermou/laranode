@@ -18,6 +18,7 @@ export async function login(req: Request, res: Response) {
     }
 
     const tokenData = user._id.toString();
+
     const encodedToken = jwt.sign(tokenData, JWT_SECRET);
 
     res.json({ token: encodedToken });
