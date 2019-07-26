@@ -4,6 +4,13 @@
   "passwordMissingDigit": "Password must have at least 1 digit",
   "passwordMissingLowercaseLetter": "Password must have at least 1 lowercase letter",
   "passwordMissingUppercaseLetter": "Password must have at least 1 uppercase letter",
+  "missingEnvironmentVariable": {
+    "ENVIRONMENT": "Missing environment variable 'ENVIRONMENT'",
+    "PORT": "Missing environment variable 'PORT'",
+    "MONGODB_URI": "Missing environment variable 'MONGODB_URI'",
+    "MONGODB_DATABASE": "Missing environment variable 'MONGODB_DATABASE'",
+    "JWT_SECRET": "Missing environment variable 'JWT_SECRET'"
+  },
   "invalidCredentials": "Invalid credentials",
   "userDoesNotExist": "This user does not exist",
   "missingAuthorizationHeader": "Missing authorization header with bearer token",

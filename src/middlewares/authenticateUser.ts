@@ -6,7 +6,7 @@ import User from "../models/User";
 import { handleErrorReponse } from "../core/errors";
 import errorMessage from "../config/errors/messages.json";
 
-const JWT_SECRET = process.env.JWT_SECRET || "secret";
+import { JWT_SECRET } from "../boot/env";
 
 export default async function authenticateUser(req: Request, res: Response, next: NextFunction) {
 
@@ -21,7 +21,7 @@ export default async function authenticateUser(req: Request, res: Response, next
     const bearerToken = authorizationHeader.split(" ")[1];
 
     // The encoded token corresponds to the user id trying to log in
-    const decodedToken = jwt.verify(bearerToken, JWT_SECRET);
+    const decodedToken = jwt.verify(bearerToken, JWT_SECRET as string);
 
     // Check if decoded token is not a valid ObjectId
     if (typeof decodedToken !== "string" || !decodedToken.match(/^[0-9a-fA-F]{24}$/)) {

@@ -10,7 +10,7 @@
     "watch": "concurrently --names \"Typescript,Node.js\" -c \"blue,green\" \"npm run watch-ts\" \"npm run watch-node\"",
     "watch-ts": "tsc --watch",
     "watch-node": "nodemon --require dotenv/config dist/server.js",
-    "test": "jest"
+    "test": "jest --runInBand"
   },
   "author": "",
   "license": "ISC",
