@@ -15,11 +15,11 @@ const app = express();
  */
 mongoose.connect(`${MONGODB_URI}/${MONGODB_DATABASE}`, { useNewUrlParser: true }, (err: any) => {
   if (err) {
-    console.log(`Error trying to connect to db: ${MONGODB_DATABASE}`);
     console.log(err);
-  } else {
-    console.log(`Connected to db: ${MONGODB_DATABASE}`);
+    process.exit(1);
   }
+
+  console.log(`Connected to db: ${MONGODB_DATABASE}`);
 });
 
 app.use(morgan("dev"));
