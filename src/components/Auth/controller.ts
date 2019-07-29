@@ -33,6 +33,7 @@ export async function register(req: Request, res: Response) {
   try {
     const user = new User({
       email: req.body.email,
+      username: req.body.username,
       password: req.body.password,
     });
 

@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 
 type UserDocument = mongoose.Document & {
   email: string;
+  username: string;
   password: string;
   comparePassword: (plaintext: string) => boolean;
 };
@@ -10,7 +11,11 @@ type UserDocument = mongoose.Document & {
 const attributes = {
   email: {
     required: true,
-    select: true,
+    type: String,
+    unique: true,
+  },
+  username: {
+    required: true,
     type: String,
     unique: true,
   },

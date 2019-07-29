@@ -19,7 +19,7 @@ export async function readMany(req: Request, res: Response) {
 export async function readOne(req: Request, res: Response) {
 
   try {
-    const user = await User.findById(req.params.id).exec();
+    const user = await User.findOne({ username: req.params.username }).exec();
 
     if (user === null) {
       throw new Error(errorMessage.userDoesNotExist);
@@ -35,7 +35,7 @@ export async function readOne(req: Request, res: Response) {
 export async function updateOne(req: Request, res: Response) {
 
   try {
-    const user = await User.findById(req.params.id).exec();
+    const user = await User.findOne({ username: req.params.username }).exec();
 
     if (user === null) {
       throw new Error(errorMessage.userDoesNotExist);
@@ -53,7 +53,7 @@ export async function updateOne(req: Request, res: Response) {
 export async function deleteOne(req: Request, res: Response) {
 
   try {
-    const user = await User.findById(req.params.id).exec();
+    const user = await User.findOne({ username: req.params.username }).exec();
 
     if (user === null) {
       throw new Error(errorMessage.userDoesNotExist);

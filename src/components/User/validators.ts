@@ -7,9 +7,6 @@ import { handleErrorReponse } from "../../core/errors";
 export function readOne(req: Request, res: Response, next: NextFunction) {
 
   try {
-    if (!matches(req.params.id, /^[0-9a-fA-F]{24}$/)) {
-      throw new Error(errorMessage.invalidObjectIdFormat);
-    }
 
     next();
 
@@ -21,27 +18,24 @@ export function readOne(req: Request, res: Response, next: NextFunction) {
 export function updateOne(req: Request, res: Response, next: NextFunction) {
 
   try {
-    if (!matches(req.params.id, /^[0-9a-fA-F]{24}$/)) {
-      throw new Error(errorMessage.invalidObjectIdFormat);
-    }
 
-    if (!isEmail(req.body.email)) {
+    if (req.body.email && !isEmail(req.body.email)) {
       throw new Error(errorMessage.emailValidation.invalidFormat);
     }
 
-    if (!isLength(req.body.password, { min: 8 })) {
+    if (req.body.password && !isLength(req.body.password, { min: 8 })) {
       throw new Error(errorMessage.passwordValidation.tooShort);
     }
 
-    if (!matches(req.body.password, /\d/)) {
+    if (req.body.password && !matches(req.body.password, /\d/)) {
       throw new Error(errorMessage.passwordValidation.missingDigit);
     }
 
-    if (!matches(req.body.password, /[a-z]/)) {
+    if (req.body.password && !matches(req.body.password, /[a-z]/)) {
       throw new Error(errorMessage.passwordValidation.missingLowercaseLetter);
     }
 
-    if (!matches(req.body.password, /[A-Z]/)) {
+    if (req.body.password && !matches(req.body.password, /[A-Z]/)) {
       throw new Error(errorMessage.passwordValidation.missingUppercaseLetter);
     }
 
@@ -55,9 +49,6 @@ export function updateOne(req: Request, res: Response, next: NextFunction) {
 export function deleteOne(req: Request, res: Response, next: NextFunction) {
 
   try {
-    if (!matches(req.params.id, /^[0-9a-fA-F]{24}$/)) {
-      throw new Error(errorMessage.invalidObjectIdFormat);
-    }
 
     next();
 
