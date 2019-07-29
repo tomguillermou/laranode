@@ -24,7 +24,7 @@ async function connect() {
 
 connect();
 
-app.use(morgan("dev"));
+// app.use(morgan("dev"));
 app.use(helmet()); // Use Helmet to protect headers
 app.use(bodyParser.json());
 
