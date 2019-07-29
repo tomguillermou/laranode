@@ -9,13 +9,14 @@ import authenticateUser from "../middlewares/authenticateUser";
 /**
  * Controllers imports
  */
-import * as AuthController from "../controllers/AuthController";
-import * as UserController from "../controllers/UserController";
+import * as AuthController from "../controllers/auth";
+import * as UserController from "../controllers/users";
 
 /**
  * Validators imports
  */
 import * as authValidator from "../validators/auth";
+import * as usersValidator from "../validators/users";
 
 /**
  * Routes
@@ -29,8 +30,8 @@ router.post("/auth/register", authValidator.register, AuthController.register);
 
 // Users
 router.get("/users", authenticateUser, UserController.readMany);
-router.get("/users/:id", authenticateUser, UserController.readOne);
-router.patch("/users/:id", authenticateUser, UserController.updateOne);
-router.delete("/users/:id", authenticateUser, UserController.deleteOne);
+router.get("/users/:id", authenticateUser, usersValidator.readOne, UserController.readOne);
+router.patch("/users/:id", authenticateUser, usersValidator.updateOne, UserController.updateOne);
+router.delete("/users/:id", authenticateUser, usersValidator.deleteOne, UserController.deleteOne);
 
 export default router;

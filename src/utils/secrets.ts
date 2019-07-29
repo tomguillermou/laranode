@@ -4,12 +4,12 @@ import dotenv from "dotenv";
 import errorMessage from "../config/errors/messages.json";
 
 if (fs.existsSync(".env")) {
-  console.log("Loading environment variables");
   dotenv.config({ path: ".env" });
+  console.log("Environment variables loaded");
 } else {
-  console.log("Loading environment variables");
-  console.log("Info: Copy file .env.example and rename it .env to specify your own environment variables");
   dotenv.config({ path: ".env.example" });
+  console.log("Environment variables loaded");
+  console.log("Info: Copy file .env.example and rename it .env to specify your own environment variables");
 }
 
 if (!process.env.ENVIRONMENT) {

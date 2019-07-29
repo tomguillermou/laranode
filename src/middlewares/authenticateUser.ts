@@ -6,7 +6,7 @@ import User from "../models/User";
 import { handleErrorReponse } from "../core/errors";
 import errorMessage from "../config/errors/messages.json";
 
-import { JWT_SECRET } from "../boot/env";
+import { JWT_SECRET } from "../utils/secrets";
 
 export default async function authenticateUser(req: Request, res: Response, next: NextFunction) {
 

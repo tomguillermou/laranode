@@ -1,7 +1,7 @@
 import http from "http";
 import app from "./app";
 
-import { PORT } from "./boot/env";
+import { PORT } from "./utils/secrets";
 
 /**
  * Create HTTP server.
