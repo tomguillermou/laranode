@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 
-import User from "../models/User";
+import User from "./model";
 
-import { handleErrorReponse } from "../core/errors";
-import errorMessage from "../config/errors/messages.json";
+import { handleErrorReponse } from "../../core/errors";
+import errorMessage from "../../config/errors/messages.json";
 
 export async function readMany(req: Request, res: Response) {
 

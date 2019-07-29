@@ -7,8 +7,6 @@ type UserDocument = mongoose.Document & {
   comparePassword: (plaintext: string) => boolean;
 };
 
-const name = "User";
-
 const attributes = {
   email: {
     required: true,
@@ -39,4 +37,6 @@ UserSchema.pre<UserDocument>("save", function (next: mongoose.HookNextFunction) 
   next();
 });
 
-export default mongoose.model<UserDocument>(name, UserSchema);
+const UserModel = mongoose.model<UserDocument>("User", UserSchema);
+
+export default UserModel;

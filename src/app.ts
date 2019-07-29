@@ -6,7 +6,8 @@ import mongoose from "mongoose";
 
 import { MONGODB_URI, MONGODB_DATABASE } from "./utils/secrets";
 
-import apiRouter from "./routes/api";
+import authRouter from "./components/Auth/routes";
+import userRouter from "./components/User/routes";
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use(morgan("dev"));
 app.use(helmet()); // Use Helmet to protect headers
 app.use(bodyParser.json());
 
-app.use(apiRouter);
+app.use(authRouter);
+app.use(userRouter);
 
 export default app;

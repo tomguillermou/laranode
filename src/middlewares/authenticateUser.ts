@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
-import User from "../models/User";
+import User from "../components/User/model";
 
 import { handleErrorReponse } from "../core/errors";
 import errorMessage from "../config/errors/messages.json";
