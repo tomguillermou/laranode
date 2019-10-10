@@ -1,5 +1,5 @@
 {
-    "name": "nodein-backend",
+    "name": "laranode",
     "version": "1.0.0",
     "description": "Create a simple Node.js API based on Laravel principles",
     "scripts": {
