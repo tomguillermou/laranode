@@ -42,7 +42,7 @@
         "@types/supertest": "^2.0.8",
         "@types/validator": "^10.11.2",
         "concurrently": "^4.1.1",
-        "mocha": "^6.2.0",
+        "mocha": "^10.2.0",
         "nodemon": "^1.18.11",
         "supertest": "^4.0.2",
         "typescript": "^3.5.3"
